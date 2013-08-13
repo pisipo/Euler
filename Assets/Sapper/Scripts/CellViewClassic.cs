@@ -7,6 +7,7 @@ public class CellViewClassic : MonoBehaviour
     public tk2dSprite question;
     public tk2dSprite closed;
     public tk2dSprite open;
+    public tk2dTextMesh NearMinesCountText;
     private CellClassic _model;
 
     public CellClassic Model
@@ -24,12 +25,22 @@ public class CellViewClassic : MonoBehaviour
 
     private void OnUpdateView()
     {
+        //DEBUG
+        //if (Model.IsMine) flag.gameObject.SetActive(true);
+
+
+
+
+
         flag.gameObject.SetActive(Model.IsFlag);
         if (Model.IsClose == false) {
-            closed.gameObject.SetActive(false);//StartCoroutine("OpenCellCoroutine");
+            closed.gameObject.SetActive(false);
             open.gameObject.SetActive(true);
-            }
-        if(Model.IsMine)flag.gameObject.SetActive(true);
+            NearMinesCountText.text = Model.NearMinesCount.ToString();
+            NearMinesCountText.Commit();
+            NearMinesCountText.gameObject.SetActive(true);
+        }
+        
 
 
     }

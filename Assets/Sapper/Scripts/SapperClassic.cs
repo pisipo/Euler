@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System;
 public class SapperClassic : MonoBehaviour
 {
     private static SapperClassic _instance;
-
+   
     public static SapperClassic Instance
     {
         get
@@ -24,10 +25,8 @@ public class SapperClassic : MonoBehaviour
 	{
 	    _instance = this;
 	    GestureController.OnCellShortTap += CellShortTapHandler;
-        GestureController.OnCellShortTap += CellLongTapHandler;
-        field=new FieldClassic(10,10);
-        field.SetMines();
-        field.SetNearMinesCount();
+        GestureController.OnCellLongTap += CellLongTapHandler;
+        
 	}
 
     void OnTap(TapGestureRecognizer gesture)
@@ -45,11 +44,28 @@ public class SapperClassic : MonoBehaviour
 
     void CellLongTapHandler(CellClassic cell)
     {
+        Handheld.Vibrate();
         cell.IsFlag = !cell.IsFlag;
     }
 
     public void GameOver()
     {
         Application.LoadLevel(Application.loadedLevel);
+    }
+
+    public void StarGame(int rowCount,int colCount,int minesPersentage)
+    {
+
+        field = new FieldClassic(rowCount, colCount);
+        field.SetMines(minesPersentage);
+        field.SetNearMinesCount();  
+    }
+
+    void OnDisable()
+    {
+        print("ONSAPPERDISABLE");
+        _instance = null;
+        GestureController.OnCellShortTap -= CellShortTapHandler;
+        GestureController.OnCellLongTap -= CellLongTapHandler;
     }
 }

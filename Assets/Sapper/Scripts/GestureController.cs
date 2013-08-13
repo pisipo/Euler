@@ -13,25 +13,32 @@ public class GestureController : MonoBehaviour
     {
         GetComponent<TapGestureRecognizer>().OnTap += OnTap;
         GetComponent<LongPressGestureRecognizer>().OnLongPress += OnLongTap;
-        GetComponent<DragGestureRecognizer>().OnDragMove += OnDraging;
     }
 
     private void OnTap(TapGestureRecognizer gesture)
     {
+        //print("TAP");
         var GO = PickObject(gesture.Position);
-        Debug.Log("ShortTap"+GO.name);
-        if (GO.tag == "classic_cell")
-            if (OnCellShortTap != null)
-                OnCellShortTap(GO.GetComponent<CellViewClassic>().Model);
+        if (GO)
+        {
+            Debug.Log("ShortTap" + GO.name);
+            if (GO.tag == "classic_cell")
+                if (OnCellShortTap != null)
+                    OnCellShortTap(GO.GetComponent<CellViewClassic>().Model);
+        }
     }
 
     private void OnLongTap(LongPressGestureRecognizer gesture)
     {
+        //print("LONGTAP");
         var GO = PickObject(gesture.Position);
-        Debug.Log("LongTap" + GO.name);
-        if (GO.tag == "classic_cell")
-            if (OnCellLongTap != null)
-                OnCellLongTap(GO.GetComponent<CellViewClassic>().Model);
+        if (GO)
+        {
+            Debug.Log("LongTap" + GO.name);
+            if (GO.tag == "classic_cell")
+                if (OnCellLongTap != null)
+                    OnCellLongTap(GO.GetComponent<CellViewClassic>().Model);
+        }
     }
 
     private void OnDraging(DragGestureRecognizer gesture)
@@ -65,4 +72,12 @@ public class GestureController : MonoBehaviour
     }
 
     #endregion
+#region OnDisable
+
+    void OnDisable()
+    {
+        GetComponent<TapGestureRecognizer>().OnTap -= OnTap;
+        GetComponent<LongPressGestureRecognizer>().OnLongPress -= OnLongTap;
+    }
+#endregion
 }
