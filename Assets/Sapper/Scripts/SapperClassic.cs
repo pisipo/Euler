@@ -44,8 +44,16 @@ public class SapperClassic : MonoBehaviour
 
     void CellLongTapHandler(CellClassic cell)
     {
+#if UNITY_ANDROID || UNITY_IPHONE
         Handheld.Vibrate();
-        cell.IsFlag = !cell.IsFlag;
+#endif
+        if (cell.IsClose)
+            cell.IsFlag = !cell.IsFlag;
+        else
+        {
+            int deminedMinesNearCell = field.DemineNearMines(cell);
+
+        }
     }
 
     public void GameOver()

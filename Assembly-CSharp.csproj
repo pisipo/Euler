@@ -73,6 +73,7 @@
      <Compile Include="Assets\Sapper\Scripts\FieldClassic.cs" />
      <Compile Include="Assets\Sapper\Scripts\GestureController.cs" />
      <Compile Include="Assets\Sapper\Scripts\SapperClassic.cs" />
+     <Compile Include="Assets\Sapper\Scripts\TapListener.cs" />
      <Compile Include="Assets\Sapper\Scripts\UIController.cs" />
      <None Include="Assets\FingerGestures\Toolbox\Misc\frameworks\tk2d\Shaders\LitSolidVertexColor.shader" />
      <None Include="Assets\FingerGestures\Toolbox\Misc\frameworks\tk2d\Shaders\SolidVertexColor.shader" />
@@ -82,7 +83,7 @@
      <None Include="Assets\FingerGestures\Toolbox\Misc\frameworks\tk2d\Shaders\BlendVertexColor.shader" />
      <None Include="Assets\FingerGestures\Toolbox\Misc\frameworks\tk2d\Shaders\LitCutoutVertexColor.shader" />
      <None Include="Assets\FingerGestures\Toolbox\Misc\frameworks\tk2d\Shaders\CutoutVertexColor.shader" />
-     <None Include="Assets\Sapper\Atlases\ArialBlack.fnt" />
+     <None Include="Assets\Sapper\Atlases\Font\ArialBlack.fnt" />
      <None Include="Assets\FingerGestures\Toolbox\Misc\frameworks\tk2d\Shaders\LitBlendVertexColor.shader" />
      <None Include="Assets\fonts\Fonts\ArialBlack.fnt" />
   </ItemGroup>

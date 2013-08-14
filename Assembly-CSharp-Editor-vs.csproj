@@ -95,7 +95,7 @@
      <None Include="Assets\FingerGestures\Toolbox\Misc\frameworks\tk2d\Shaders\BlendVertexColor.shader" />
      <None Include="Assets\FingerGestures\Toolbox\Misc\frameworks\tk2d\Shaders\LitCutoutVertexColor.shader" />
      <None Include="Assets\FingerGestures\Toolbox\Misc\frameworks\tk2d\Shaders\CutoutVertexColor.shader" />
-     <None Include="Assets\Sapper\Atlases\ArialBlack.fnt" />
+     <None Include="Assets\Sapper\Atlases\Font\ArialBlack.fnt" />
      <None Include="Assets\FingerGestures\Toolbox\Misc\frameworks\tk2d\Shaders\LitBlendVertexColor.shader" />
      <None Include="Assets\fonts\Fonts\ArialBlack.fnt" />
  <Reference Include="tk2dExternal">

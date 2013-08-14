@@ -4,10 +4,12 @@ using System.Collections;
 
 public class GestureController : MonoBehaviour
 {
+    [SerializeField]private Camera GUICamera;
     public static event Action<CellClassic> OnCellShortTap;
     public static event Action<CellClassic> OnCellLongTap;
     public static event Action<CellClassic> OnCellDoubleTap;
     public static event Action<Vector2> OnDrag;
+    public static event Action<GameObject> OnGUITap; 
 
     private void Start()
     {
@@ -17,7 +19,7 @@ public class GestureController : MonoBehaviour
 
     private void OnTap(TapGestureRecognizer gesture)
     {
-        //print("TAP");
+        print("TAP");
         var GO = PickObject(gesture.Position);
         if (GO)
         {
@@ -25,12 +27,15 @@ public class GestureController : MonoBehaviour
             if (GO.tag == "classic_cell")
                 if (OnCellShortTap != null)
                     OnCellShortTap(GO.GetComponent<CellViewClassic>().Model);
+            if (GO.tag == "GUI")
+                if (OnGUITap != null)
+                    OnGUITap(GO);
         }
     }
 
     private void OnLongTap(LongPressGestureRecognizer gesture)
     {
-        //print("LONGTAP");
+        print("LONGTAP");
         var GO = PickObject(gesture.Position);
         if (GO)
         {
@@ -38,6 +43,9 @@ public class GestureController : MonoBehaviour
             if (GO.tag == "classic_cell")
                 if (OnCellLongTap != null)
                     OnCellLongTap(GO.GetComponent<CellViewClassic>().Model);
+            if(GO.tag=="GUI")
+                if (OnGUITap != null)
+                    OnGUITap(GO);
         }
     }
 
@@ -60,11 +68,14 @@ public class GestureController : MonoBehaviour
     }
 
     // Return the GameObject at the given screen position, or null if no valid object was found
-    public static GameObject PickObject(Vector2 screenPos)
+    public GameObject PickObject(Vector2 screenPos)
     {
-        Ray ray = Camera.main.ScreenPointToRay(screenPos);
+        Ray ray = GUICamera.ScreenPointToRay(screenPos);
         RaycastHit hit;
-
+        if (Physics.Raycast(ray, out hit))
+            if(hit.collider.gameObject.tag=="GUI")
+                return hit.collider.gameObject;
+        ray = Camera.main.ScreenPointToRay(screenPos);
         if (Physics.Raycast(ray, out hit))
             return hit.collider.gameObject;
 

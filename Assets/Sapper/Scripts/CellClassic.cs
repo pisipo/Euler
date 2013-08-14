@@ -29,6 +29,15 @@ public class CellClassic
         }
     }
 
+    public bool IsDemine
+    {
+        get { return _isDemine; }
+        set
+        {
+            _isDemine = value;
+            UpdateView();
+        }
+    }
     public bool IsClose
     {
         get { return _isClose; }
@@ -49,7 +58,7 @@ public class CellClassic
     private bool _isFlag;
     private bool _isClose;
     private int _nearMinesCount;
-
+    private bool _isDemine;
     public CellClassic(int row, int col)
     {
         Row = row;

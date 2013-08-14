@@ -9,6 +9,7 @@ public class FieldClassic
     //private FieldClassic _instance;
     private int _minesCount;
     private int _openedCells;
+    
 
 
 
@@ -113,6 +114,7 @@ public class FieldClassic
                     if (_field[i, j].IsClose == true)
                     {
                         _field[i, j].IsClose = false;
+                        _field[i, j].IsFlag = false;
                         OpenedCells++;
                         if (_field[i, j].NearMinesCount == 0)
                         {
@@ -126,6 +128,34 @@ public class FieldClassic
         }
     }
 
+    public int DemineNearMines(CellClassic cell)
+    {
+        int nearMinesCount = 0;
+        int nearFlagsCount = 0;
+        for (int i = cell.Row - 1; i < cell.Row + 2; i++)
+        {
+            for (int j = cell.Column - 1; j < cell.Column + 2; j++)
+            {
+                try
+                {
+                    if (_field[i, j].IsMine) nearMinesCount++;
+                    if (_field[i, j].IsFlag) nearFlagsCount++;
+                    if (nearFlagsCount == nearMinesCount)
+                    {
+                        if (_field[i, j].IsMine) _field[i, j].IsDemine=true;
+                        else if (_field[i, j].IsClose) _field[i, j].IsClose = false;
+                    }
+                    else
+                    {
+                        
+                        return -1;
+                    }
+                }
+                catch { }
+            }
+        }
+        return nearMinesCount;
+    }
     public void OpenCell(CellClassic cell)
     {
         cell.IsClose = false;
@@ -156,7 +186,7 @@ public class FieldClassic
        cellGO.GetComponent<CellViewClassic>().Model = cell;
         cellGO.name = cell.Row.ToString() + "_" + cell.Column.ToString() + "_" + "cell";
        cellGO.transform.parent = GameObject.Find("Field").transform;
-        var cellSprite = cellGO.GetComponent<CellViewClassic>().closed;
+        var cellSprite = cellGO.GetComponent<CellViewClassic>().close;
        cellGO.transform.localPosition = new Vector3(cell.Row * cellSprite.renderer.bounds.size.x, cell.Column * cellSprite.renderer.bounds.size.y, 0);
     }
 }
